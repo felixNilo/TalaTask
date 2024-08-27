@@ -10,18 +10,19 @@ def assign_tasks():
         'total_hours_assigned': 0,
         'remaining_hours': 0,
         'tasks': [],
-        'skills_used': set()
     })
 
     for task in tasks:
         #get the task day code
         task_day_code = task.date.strftime('%a')[:2].upper()
-        required_skills = set(task.required_skills.all())  #performance improvement
+        required_skills = set(task.required_skills.all())
 
         for employee in employees:
-            employee_skills = set(employee.skills.all())  #performance improvement
+            employee_skills = set(employee.skills.all())
             is_available_on_task_date = task_day_code in employee.available_days
-
+            
+            #TODO. If is available, do the next, else, go to the other employee
+                
             #check if the employee has the required skills
             has_required_skills = required_skills.issubset(employee_skills)
 
