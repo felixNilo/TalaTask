@@ -123,7 +123,7 @@ No se han configurado mas endpoints aparte del entregado por defecto por django 
 
 ### Encolamiento de peticiones
 
-- Para mejorar la experiencia del usuario, es importante que podamos encolar las peticiones http al endpoint ``/api/assign/` de manera evitar problemas al intentar actualizar algun registro de `Employee` y `Task`. Esto asegurara que no podamos asignar tareas 2 o mas veces al existir dos o mas peticiones simultaneas.
+- Para mejorar la experiencia del usuario, es importante que podamos encolar las peticiones http al endpoint `/api/assign/` de manera evitar problemas al intentar actualizar algun registro de `Employee` y `Task`. Esto asegurara que no podamos asignar tareas 2 o mas veces al existir dos o mas peticiones simultaneas.
 
 ### Mejora de performance en `TalaTask\tasks\services.py`
 
