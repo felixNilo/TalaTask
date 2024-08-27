@@ -129,8 +129,8 @@ No se han configurado mas endpoints aparte del entregado por defecto por django 
 
 - Actualmente se estan iterando por todos los `Employee` por cada `Task` sin asignar. Esto genera un orden de complejidad O(m*n), donde m es numero de tareas, y n el numero de empleados, por lo cual se debe mejorar la forma en que se estan asignando las tareas.
 
-- ¿Opciones?
--- Preprocesar skills y disponibilidad de dias
---- Suponiendo que los skills por empleados y dias disponible de la semana de los empleados son conjuntos finito de strings, entonces, se podrian agrupar los skills, los dias disponibles y horas disponible de los empleados en diccionarios previo a la asignacion de tareas.
--- Dividir la operacion en batches asincronos y responder a la peticion una vez que la operacion de todos los batches haya acabado.
+## ¿Opciones?
+- Preprocesar skills y disponibilidad de dias
+Suponiendo que los skills por empleados y dias disponible de la semana de los empleados son conjuntos finito de strings, entonces, se podrian agrupar los skills, los dias disponibles y horas disponible de los empleados en diccionarios previo a la asignacion de tareas.
+- Dividir la operacion en batches asincronos y responder a la peticion una vez que la operacion de todos los batches haya acabado.
 
