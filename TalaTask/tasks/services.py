@@ -28,7 +28,6 @@ def assign_tasks():
 
     assignments = defaultdict(lambda: {
         'total_hours_assigned': 0,
-        'remaining_hours': 0,
         'tasks': [],
     })
     
@@ -55,9 +54,9 @@ def assign_tasks():
                     
                     #update the assignments dictionary
                     assignments[employee.name]['total_hours_assigned'] += task.duration
-                    assignments[employee.name]['remaining_hours'] = total_available_hours
                     assignments[employee.name]['tasks'].append({
                         'task_title': task.title,
+                        'due date': task_due_date,
                         'duration': task.duration,
                         'skills_used': sorted([skill.name for skill in required_skills])
                     })
