@@ -118,3 +118,19 @@ Este endpoint devuelve un reporte sobre cómo las tareas han sido asignadas a lo
 ## Consideraciones de respuestas HTML
 
 No se han configurado mas endpoints aparte del entregado por defecto por django (`/admin`) y el endpoint para la respuesta de la asignacion de tareas (`/api/assign/`).
+
+## Deudas de experiencia
+
+### Encolamiento de peticiones
+
+- Para mejorar la experiencia del usuario, es importante que podamos encolar las peticiones http al endpoint ``/api/assign/` de manera evitar problemas al intentar actualizar algun registro de `Employee` y `Task`. Esto asegurara que no podamos asignar tareas 2 o mas veces al existir dos o mas peticiones simultaneas.
+
+### Mejora de performance en `TalaTask\tasks\services.py`
+
+- Actualmente se estan iterando por todos los `Employee` por cada `Task` sin asignar. Esto genera un orden de complejidad O(m*n), donde m es numero de tareas, y n el numero de empleados, por lo cual se debe mejorar la forma en que se estan asignando las tareas.
+
+- ¿Opciones?
+-- Preprocesar skills y disponibilidad de dias
+--- Suponiendo que los skills por empleados y dias disponible de la semana de los empleados son conjuntos finito de strings, entonces, se podrian agrupar los skills, los dias disponibles y horas disponible de los empleados en diccionarios previo a la asignacion de tareas.
+-- Dividir la operacion en batches asincronos y responder a la peticion una vez que la operacion de todos los batches haya acabado.
+
