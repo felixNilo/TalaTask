@@ -53,8 +53,8 @@ python manage.py runserver
 ### 5. Acceso a la consola de administración
 
 El superusuario ya ha sido creado con las siguientes credenciales:
--Usuario: admin
--Contraseña: admin
+- Usuario: admin
+- Contraseña: admin
 
 Puedes acceder a la consola de administración en [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
 
@@ -82,18 +82,18 @@ La aplicación estará disponible en [http://localhost:8000](http://localhost:80
 ### 4. Acceso a la consola de administración
 
 Puedes acceder a la consola de administración en [http://localhost:8000/admin/](http://localhost:8000/admin/) con las credenciales del superusuario ya creado:
--Usuario: admin
--Contraseña: admin
+- Usuario: admin
+- Contraseña: admin
 
 ## Crear Employees, Skills y Tasks
 
 ### Crear Skills
 
 En la consola de administración, navega a `Skills` y crea las habilidades necesarias. Las habilidades esta organizadas en cuatro dimensiones:
--Tecnología (`tech`)
--Comunicación (`com`)
--Liderazgo (`lead`)
--Procesos (`proc`)
+- Tecnología (`tech`)
+- Comunicación (`com`)
+- Liderazgo (`lead`)
+- Procesos (`proc`)
 
 Cada dimensión tiene 3 niveles (por ejemplo, tech_lvl_1, tech_lvl_2, tech_lvl_3).
 *Nota: Si un empleado tiene un nivel 2 en una dimensión, también debería tener el nivel 1, aunque esta validación no está implementada en el código.*
