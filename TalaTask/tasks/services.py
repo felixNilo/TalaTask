@@ -52,8 +52,4 @@ def assign_tasks():
 
                 break  #task assigned, move to the next task
     
-    #convert skills_used from set to list for JSON serialization
-    for employee_data in assignments.values():
-        employee_data['skills_used'] = list(employee_data['skills_used'])
-    
     return assignments
