@@ -101,7 +101,7 @@ Cada dimensión tiene 3 niveles (por ejemplo, tech_lvl_1, tech_lvl_2, tech_lvl_3
 ### Crear Employees
 
 En la consola de administración, navega a `Employees` y crea empleados asignándoles habilidades previamente creadas, especificando sus horas disponibles por día y los días de la semana en los que están disponibles.
-**Las horas disponibles por dia, indican el promedio de horas que tiene un `Employee`. Es decir, que si el `Employee` tiene 2 dias disponibles, y 4 horas disponibles, entonces, el `Employee` tiene 8 (2 x 4) horas totales disponibles.**
+**Las horas disponibles por dia, indican el promedio de horas semanales que tiene un `Employee`. Es decir, que si el `Employee` tiene 2 dias disponibles, y 4 horas disponibles, entonces, el `Employee` tiene 8 (2 x 4) horas totales disponibles en la semana.**
 
 ### Crear Tasks
 
@@ -120,6 +120,9 @@ Este endpoint devuelve un reporte sobre cómo las tareas han sido asignadas a lo
 No se han configurado mas endpoints aparte del entregado por defecto por django (`/admin`) y el endpoint para la respuesta de la asignacion de tareas (`/api/assign/`).
 
 ## Deudas de experiencia
+
+### Calculo de horas desde la hora actual al final del dia de la fecha de entrega de la tarea
+- Actualmente se estan calculando las horas disponibles del `Employee` suponiendo que este aun tiene disponibles las horas del dia en el cual se esta haciendo la consulta. Faltaria agregar un rango horario de trabajo del `Employee` de manera de saber de mayor precision para las fechas borde.
 
 ### Encolamiento de peticiones
 

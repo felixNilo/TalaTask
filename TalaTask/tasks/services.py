@@ -1,5 +1,25 @@
 from collections import defaultdict
 from .models import Employee, Task
+from datetime import datetime, timedelta
+
+def calculate_available_days(employee, start_date, end_date):
+    #here we get the number of available days of the employee from today to the date of the task
+    available_days_count = 0
+    current_date = start_date
+
+    while current_date <= end_date:
+        day_code = current_date.strftime('%a')[:2].upper()
+        if day_code in employee.available_days:
+            available_days_count += 1
+        current_date += timedelta(days=1)
+
+    return available_days_count
+
+def calculate_total_available_hours(employee, start_date, end_date):
+    #here we get the total hour available for the employee from today to the date of the task
+    available_days = calculate_available_days(employee, start_date, end_date)
+    total_available_hours = available_days * employee.available_hours_per_day
+    return total_available_hours
 
 def assign_tasks():
     # get all unassigned task and all employees
@@ -11,35 +31,27 @@ def assign_tasks():
         'remaining_hours': 0,
         'tasks': [],
     })
+    
+    today = datetime.now().date()
 
     for task in tasks:
-        #get the task day code
-        task_day_code = task.date.strftime('%a')[:2].upper()
+        task_due_date = task.date
         required_skills = set(task.required_skills.all())
 
         for employee in employees:
-            employee_skills = set(employee.skills.all())
-            is_available_on_task_date = task_day_code in employee.available_days
+            #get the available hour of the employee from today to due date.
+            total_available_hours = calculate_total_available_hours(employee, today, task_due_date)
             
-            if is_available_on_task_date:               
+            if total_available_hours >= task.duration:               
                 #check if the employee has the required skills
-                has_required_skills = required_skills.issubset(employee_skills)
+                has_required_skills = required_skills.issubset(set(employee.skills.all()))
 
-                #clculate the total available hours for the employee
-                total_available_hours = employee.available_hours_per_day * len(employee.available_days)
-
-                #check if the employee has sufficient hours available
-                has_sufficient_hours = total_available_hours >= task.duration
-
-                if has_required_skills and is_available_on_task_date and has_sufficient_hours:
-                    #assign the task to the employee
+                if has_required_skills:
                     task.assigned_employee = employee
                     task.save()
 
                     #reduce the employee available hours
                     total_available_hours -= task.duration
-                    employee.available_hours_per_day = total_available_hours / len(employee.available_days)
-                    employee.save()
                     
                     #update the assignments dictionary
                     assignments[employee.name]['total_hours_assigned'] += task.duration
