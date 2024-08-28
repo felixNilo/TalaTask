@@ -15,23 +15,16 @@ def calculate_available_days(employee, start_date, end_date):
 
     return available_days_count
 
-def calculate_total_available_hours(employee, start_date, end_date, cache):
-    #calculate total available hours and use a cache to avoid redundant calculations
-    cache_key = (employee.id, start_date, end_date)
-    if cache_key in cache:
-        return cache[cache_key]
-    
+def calculate_total_available_hours(employee, start_date, end_date,):
     #here we get the total hour available for the employee from today to the date of the task
     available_days = calculate_available_days(employee, start_date, end_date)
     total_available_hours = available_days * employee.available_hours_per_day
-    cache[cache_key] = total_available_hours
     return total_available_hours
 
 def assign_tasks():
     # get all unassigned task and all employees
     tasks = Task.objects.filter(assigned_employee__isnull=True)
     employees = Employee.objects.all()
-    available_hours_cache = {}
 
     assignments = defaultdict(lambda: {
         'total_hours_assigned': 0,
@@ -46,7 +39,7 @@ def assign_tasks():
 
         for employee in employees:
             #get the available hour of the employee from today to due date.
-            total_available_hours = calculate_total_available_hours(employee, today, task_due_date, available_hours_cache)
+            total_available_hours = calculate_total_available_hours(employee, today, task_due_date)
             
             if total_available_hours >= task.duration:               
                 #check if the employee has the required skills
