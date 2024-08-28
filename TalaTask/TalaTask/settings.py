@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'TalaTask.middleware.profiling_middleware.SimpleProfilerMiddleware',
 ]
 
 ROOT_URLCONF = 'TalaTask.urls'
