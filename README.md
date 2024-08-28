@@ -132,8 +132,36 @@ No se han configurado mas endpoints aparte del entregado por defecto por django 
 
 - Actualmente se estan iterando por todos los `Employee` por cada `Task` sin asignar. Esto genera un orden de complejidad O(m*n), donde m es numero de tareas, y n el numero de empleados, por lo cual se debe mejorar la forma en que se estan asignando las tareas.
 
-## ¿Opciones?
-- Preprocesar skills y disponibilidad de dias
-Suponiendo que los skills por empleados y dias disponible de la semana de los empleados son conjuntos finito de strings, entonces, se podrian agrupar los skills, los dias disponibles y horas disponible de los empleados en diccionarios previo a la asignacion de tareas.
+## Opcion para mejora de performance
 - Dividir la operacion en batches asincronos y responder a la peticion una vez que la operacion de todos los batches haya acabado.
 
+### Tests de la aplicacion
+Actualmente, en `TalaTask\tasks\tests.py` se estan probando los servicios de `TalaTask\tasks\services.py`. Para ejecutar los tests, por consola, se debe ingresar lo siguiente:
+
+```bash
+python manage.py test
+```
+
+### Uso de factory boy para crear empleados y tasks masivamente
+
+Para probar el performance de la aplicacion, se recomienda que se utilice gran cantidad de datos. Para eso, podemos utilizar Factory Boy a traves de la shell de django.
+Para eso, ingresemos a la shell.
+
+```bash
+python manage.py shell
+```
+
+Una vez dentro, ingresaremos el siguiente codigo:
+
+```bash
+from tasks.factories import EmployeeFactory, TaskFactory
+
+for _ in range(100):
+    EmployeeFactory.create()
+
+# Crear tareas
+for _ in range(200):
+    TaskFactory.create()
+```
+
+Esto creara 100 `Employee` y 200 `Task`. Considere generar 1000 empleados y 2000 tasks para realizar pruebas del endpoint.
