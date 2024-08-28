@@ -27,7 +27,7 @@ class EmployeeFactory(factory.django.DjangoModelFactory):
                 level = fake.random_int(min=1, max=3)
                 for lvl in range(1, level + 1):
                     skill_name = f'{dimension}_lvl_{lvl}'
-                    skill = Skill.objects.get(name=skill_name)
+                    skill, created = Skill.objects.get_or_create(name=skill_name)
                     self.skills.add(skill)
 
 class TaskFactory(factory.django.DjangoModelFactory):
@@ -50,5 +50,5 @@ class TaskFactory(factory.django.DjangoModelFactory):
             for dimension in dimensions:
                 level = fake.random_int(min=1, max=3)
                 skill_name = f'{dimension}_lvl_{level}'
-                skill = Skill.objects.get(name=skill_name)
+                skill, created = Skill.objects.get_or_create(name=skill_name)
                 self.required_skills.add(skill)

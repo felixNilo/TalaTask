@@ -1,6 +1,7 @@
 Django>=3.2,<4.0
 djangorestframework>=3.12.4
 django-multiselectfield
+factory-boy
 
 #to production consider to use gunicorn in order to improve the performance and concurrence.
 #gunicorn>=20.1.0
